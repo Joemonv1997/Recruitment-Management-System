@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Designation</th>
+        <th scope="col">Experience</th>
+        <th scope="col">View</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in data %}
+      <tr>
+        <td>{{i.FullName}}</td>
+        <td>{{i.LastName}}</td>
+        <td>{{i.Designation__name}}</td>
+        <td>{{i.Experience}}</td>
+        <td>{{i.id}}</td>
+      </tr>
+      {% endfor %}
+     
+    </tbody>
+  </table>{% endblock %}
