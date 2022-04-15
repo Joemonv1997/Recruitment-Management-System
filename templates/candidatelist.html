@@ -8,6 +8,9 @@
         <th scope="col">Designation</th>
         <th scope="col">Experience</th>
         <th scope="col">View</th>
+        <th scope="col">Create Aptitude Mark</th>
+        <th scope="col">Create FaceToFace Mark</th>
+        <th scope="col">Create Machine Mark</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +21,12 @@
         <td>{{i.Designation__name}}</td>
         <td>{{i.Experience}}</td>
         <td>{{i.id}}</td>
+        <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'Aptitude' i.id %}">Aptitude</button>
+        </td>
+        <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'face' i.id %}">FaceToFace</button>
+        </td>
+        <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'machine' i.id %}">Machine</button>
+        </td>
       </tr>
       {% endfor %}
      
