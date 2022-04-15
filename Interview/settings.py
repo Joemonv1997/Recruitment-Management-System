@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_2+l%$+q@igw_h*#k@zr0!^gn2k0(obb2&0&eewqg-nfm+1_v7
 DEBUG = True
 
 ALLOWED_HOSTS = ["interviewmngsysytem.herokuapp.com","127.0.0.1"]
-ALLOWED_HOSTS=[]
+# ALLOWED_HOSTS=[]
 
 # Application definition
 
