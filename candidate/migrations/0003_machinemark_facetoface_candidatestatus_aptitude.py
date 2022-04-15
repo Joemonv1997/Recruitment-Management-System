@@ -8,50 +8,188 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('candidate', '0002_candidate_interviewdate_candidate_interviewt_and_more'),
+        ("candidate", "0002_candidate_interviewdate_candidate_interviewt_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MachineMark',
+            name="MachineMark",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('logic_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('problemsolve_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('Finalout_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('average_marks', models.FloatField()),
-                ('Remarks', models.TextField(max_length=100)),
-                ('Name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='candidate.candidate')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "logic_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                (
+                    "problemsolve_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                (
+                    "Finalout_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                ("average_marks", models.FloatField()),
+                ("Remarks", models.TextField(max_length=100)),
+                (
+                    "Name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="candidate.candidate",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='FaceToFace',
+            name="FaceToFace",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('personality_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('communication_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('technical_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('logical_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('average_marks', models.FloatField()),
-                ('Remarks', models.TextField(max_length=100)),
-                ('Name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='candidate.candidate')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "personality_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                (
+                    "communication_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                (
+                    "technical_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                (
+                    "logical_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                ("average_marks", models.FloatField()),
+                ("Remarks", models.TextField(max_length=100)),
+                (
+                    "Name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="candidate.candidate",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='CandidateStatus',
+            name="CandidateStatus",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('interview_status', models.CharField(choices=[('PASSED', 'PASSED'), ('ONHOLD', 'ONHOLD'), ('FAIL', 'FAIL')], max_length=20)),
-                ('Name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='candidate.candidate')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "interview_status",
+                    models.CharField(
+                        choices=[
+                            ("PASSED", "PASSED"),
+                            ("ONHOLD", "ONHOLD"),
+                            ("FAIL", "FAIL"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
+                (
+                    "Name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="candidate.candidate",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Aptitude',
+            name="Aptitude",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('aptitude_marks', models.FloatField(default=0, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(10.0)])),
-                ('Remarks', models.TextField(max_length=100)),
-                ('Name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='candidate.candidate')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "aptitude_marks",
+                    models.FloatField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.0),
+                            django.core.validators.MaxValueValidator(10.0),
+                        ],
+                    ),
+                ),
+                ("Remarks", models.TextField(max_length=100)),
+                (
+                    "Name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="candidate.candidate",
+                    ),
+                ),
             ],
         ),
     ]

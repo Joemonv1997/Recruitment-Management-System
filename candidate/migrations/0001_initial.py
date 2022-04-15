@@ -8,31 +8,57 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Designation',
+            name="Designation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='candidate',
+            name="candidate",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('username', models.CharField(blank=True, max_length=100, null=True, unique=True)),
-                ('FullName', models.CharField(max_length=100)),
-                ('LastName', models.CharField(max_length=100)),
-                ('Address', models.TextField()),
-                ('Experience', models.FloatField()),
-                ('Programming', models.CharField(max_length=100)),
-                ('District', models.CharField(max_length=100)),
-                ('State', models.CharField(max_length=100)),
-                ('Country', models.CharField(max_length=100)),
-                ('Designation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='candidate.designation')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(
+                        blank=True, max_length=100, null=True, unique=True
+                    ),
+                ),
+                ("FullName", models.CharField(max_length=100)),
+                ("LastName", models.CharField(max_length=100)),
+                ("Address", models.TextField()),
+                ("Experience", models.FloatField()),
+                ("Programming", models.CharField(max_length=100)),
+                ("District", models.CharField(max_length=100)),
+                ("State", models.CharField(max_length=100)),
+                ("Country", models.CharField(max_length=100)),
+                (
+                    "Designation",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="candidate.designation",
+                    ),
+                ),
             ],
         ),
     ]

@@ -9,23 +9,33 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('candidate', '0001_initial'),
+        ("candidate", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='candidate',
-            name='InterviewDate',
+            model_name="candidate",
+            name="InterviewDate",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='candidate',
-            name='InterviewT',
-            field=models.CharField(blank=True, choices=[('FN', 'FN'), ('AN', 'AN'), ('EN', 'EN')], max_length=20, null=True),
+            model_name="candidate",
+            name="InterviewT",
+            field=models.CharField(
+                blank=True,
+                choices=[("FN", "FN"), ("AN", "AN"), ("EN", "EN")],
+                max_length=20,
+                null=True,
+            ),
         ),
         migrations.AddField(
-            model_name='candidate',
-            name='Interviewer',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="candidate",
+            name="Interviewer",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
