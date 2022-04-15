@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-from .forms import GroupCreate,DesignationCreate,candidateCreate
-from .models import candidate,Designation
+from .forms import GroupCreate,DesignationCreate,candidateCreate,AptitudeCreate,MachineCreate,FaceCreate,MachineCreate,StatusCreate
+from .models import candidate,Designation,Aptitude,FaceToFace,MachineMark,CandidateStatus
 from django.contrib.auth import login,authenticate,logout
 from django.shortcuts import redirect
 # Create your views here.
@@ -80,3 +80,53 @@ class logoutr(TemplateView):
         logout(request)
         return redirect("/")
     
+class AptitudeView(TemplateView):
+    form=AptitudeCreate()
+    def get(self,request,*args, **kwargs):
+        cand=candidate.objects.get(id=kwargs.get("id"))
+        print(cand)
+        # print(kwargs.get("id")) 
+        return render(request,"aptitude.html",{'form':self.form,'data':'Aptitude'})
+
+    def post(self,request,*args, **kwargs):
+        pass
+        # form=candidateCreate(request.POST)
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect("/")
+        # else:
+        #     return render(request,"candidate.html",{'form':form})
+
+class FaceView(TemplateView):
+    form=FaceCreate()
+    def get(self,request,*args, **kwargs):
+        cand=candidate.objects.get(id=kwargs.get("id"))
+        print(cand)
+        # print(kwargs.get("id")) 
+        return render(request,"aptitude.html",{'form':self.form,'data':'Face To Face'})
+
+    def post(self,request,*args, **kwargs):
+        pass
+        # form=candidateCreate(request.POST)
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect("/")
+        # else:
+        #     return render(request,"candidate.html",{'form':form})
+
+class MachineView(TemplateView):
+    form=MachineCreate()
+    def get(self,request,*args, **kwargs):
+        cand=candidate.objects.get(id=kwargs.get("id"))
+        print(cand)
+        # print(kwargs.get("id")) 
+        return render(request,"aptitude.html",{'form':self.form,'data':"Machine Test"})
+
+    def post(self,request,*args, **kwargs):
+        pass
+        # form=candidateCreate(request.POST)
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect("/")
+        # else:
+        #     return render(request,"candidate.html",{'form':form})
