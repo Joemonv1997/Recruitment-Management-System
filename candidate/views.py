@@ -198,6 +198,7 @@ class CandView(TemplateView):
             mac=MachineMark.objects.filter(Name__username=i["username"]).values("average_marks")
             wq=float(apt[0]["aptitude_marks"])+int(fact[0]["average_marks"])+int(mac[0]["average_marks"])
             datad={
+                "id":i["id"],
                 "full":i["FullName"],
                 "last":i["LastName"],
                 "Des":i["Designation__name"],
@@ -270,3 +271,38 @@ class CandDetail(TemplateView):
             )
         
 
+class MarkView(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        data_list=[]
+        cand = candidate.objects.filter(id=kwargs.get("id")).values("username",
+        "FullName", "LastName", "Designation__name", "Experience", "id"
+    )
+        for i in cand:
+            apt=Aptitude.objects.filter(Name__username=i["username"]).values("aptitude_marks")
+            fact=FaceToFace.objects.filter(Name__username=i["username"]).values("average_marks",'personality_marks', 'communication_marks', 'technical_marks', 'logical_marks')
+            mac=MachineMark.objects.filter(Name__username=i["username"]).values("average_marks",'logic_marks', 'problemsolve_marks', 'Finalout_marks')
+            wq=float(apt[0]["aptitude_marks"])+int(fact[0]["average_marks"])+int(mac[0]["average_marks"])
+            datad={
+                "First Name":i["FullName"],
+                "Last Name":i["LastName"],
+                "Designation Name":i["Designation__name"],
+                "Experience":i["Experience"],
+                "Aptitude Average Marks":apt[0]["aptitude_marks"],
+                'personality_marks':fact[0]["personality_marks"],
+                 'communication_marks':fact[0]["communication_marks"], 
+                 'technical_marks':fact[0]["technical_marks"], 
+                 'logical_marks':fact[0]["logical_marks"],
+                "Face To Face Average Marks":fact[0]["average_marks"],
+                'logic_marks':mac[0]["logic_marks"],
+                 'problemsolve_marks':mac[0]["problemsolve_marks"], 
+                 'Finalout_marks':mac[0]["Finalout_marks"],
+                "Machine Average Mark":mac[0]["average_marks"],
+                "Total Marks":float(wq)
+            }
+            data_list.append(datad)
+        # new = sorted(data_list, key=lambda d: d['total'],reverse=True) 
+
+        return render(
+            request, "markdetail.html", {"data": data_list}
+        )
