@@ -15,5 +15,6 @@ urlpatterns = [
     path("machine/<int:id>", views.MachineView.as_view(), name="machine"),
     path("candmark",views.CandView.as_view(),name="candm"),
     path("HRCreate",views.HRCreate.as_view(),name="HR"),
-    path("Interviewe",views.InterviewerCreate.as_view(),name="Interviewer")
+    path("Interviewe",views.InterviewerCreate.as_view(),name="Interviewer"),
+    path("detail/<int:id>",views.CandDetail.as_view(),name="detail")
 ]

@@ -1,0 +1,21 @@
+{% extends "home.html" %}
+{% block content %}
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Column Name</th>
+        <th scope="col">Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i,j in data.items %}
+      <tr>
+        <td>{{i}}</td>
+        <td>{{j}}</td>
+      </tr>
+      {% endfor %}
+     
+    </tbody>
+  </table>
+{% endblock %}

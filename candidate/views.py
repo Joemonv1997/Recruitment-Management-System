@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import F
 from .forms import (
     GroupCreate,
     DesignationCreate,
@@ -149,7 +150,7 @@ class FaceView(TemplateView):
     def post(self, request, *args, **kwargs):
         print(request.POST)
         form=FaceCreate(request.POST)
-        wq=int(request.POST["personality_marks"])+int(request.POST["communication_marks"])+int(request.POST["technical_marks"])+int(request.POST["logical_marks"])
+        wq=int(request.POST["personality_marks"])+float(request.POST["communication_marks"])+float(request.POST["technical_marks"])+float(request.POST["logical_marks"])
         wq=wq/4
         if form.is_valid():
             q=form.save(commit=False)
@@ -187,14 +188,29 @@ class MachineView(TemplateView):
 class CandView(TemplateView):
 
     def get(self, request, *args, **kwargs):
+        data_list=[]
         cand = candidate.objects.all().values("username",
         "FullName", "LastName", "Designation__name", "Experience", "id"
     )
-        apt=Aptitude.objects.all().values("Name__username","aptitude_marks")
-        fact=FaceToFace.objects.all().values("Name__username","average_marks")
-        mac=MachineMark.objects.all().values("Name__username","average_marks")
+        for i in cand:
+            apt=Aptitude.objects.filter(Name__username=i["username"]).values("aptitude_marks")
+            fact=FaceToFace.objects.filter(Name__username=i["username"]).values("average_marks")
+            mac=MachineMark.objects.filter(Name__username=i["username"]).values("average_marks")
+            wq=float(apt[0]["aptitude_marks"])+int(fact[0]["average_marks"])+int(mac[0]["average_marks"])
+            datad={
+                "full":i["FullName"],
+                "last":i["LastName"],
+                "Des":i["Designation__name"],
+                "Experience":i["Experience"],
+                "apt":apt[0]["aptitude_marks"],
+                "fact":fact[0]["average_marks"],
+                "mac":fact[0]["average_marks"],
+                "total":float(wq)
+            }
+            data_list.append(datad)
+            
         return render(
-            request, "candidate_full.html", {"data": cand}
+            request, "candidate_full.html", {"data": data_list}
         )
 
 
@@ -241,3 +257,15 @@ class InterviewerCreate(TemplateView):
             return render(
                 request, "aptitude.html", {"data": "HR","form":form}
             )
+
+class CandDetail(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        cand=candidate.objects.filter(id=kwargs.get("id")).annotate(interviewer=F("Interviewer__username")).values()
+        # cand=cand[0].values()
+        print(cand[0])
+        return render(
+                request, "candidatedetail.html", {"data":cand[0]}
+            )
+        
+
