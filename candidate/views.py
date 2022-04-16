@@ -24,12 +24,14 @@ from .models import (
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User,Group
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 def home(request):
     return render(request, "home.html")
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class GroupView(TemplateView):
     form = GroupCreate
 
@@ -47,7 +49,7 @@ class GroupView(TemplateView):
         else:
             return render(request, "groupcreate.html", {"form": form})
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class DesignationView(TemplateView):
     form = DesignationCreate
 
@@ -65,7 +67,7 @@ class DesignationView(TemplateView):
         else:
             return render(request, "designation.html", {"form": form})
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class CandidateView(TemplateView):
     form = candidateCreate()
 
@@ -83,7 +85,7 @@ class CandidateView(TemplateView):
         else:
             return render(request, "candidate.html", {"form": form})
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class CandidateListView(TemplateView):
     data = candidate.objects.all().values(
         "FullName", "LastName", "Designation__name", "Experience", "id"
@@ -117,7 +119,7 @@ class logoutr(TemplateView):
         logout(request)
         return redirect("/")
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class AptitudeView(TemplateView):
     form = AptitudeCreate()
 
@@ -135,7 +137,7 @@ class AptitudeView(TemplateView):
         else:
             return render(request,"aptitude.html",{'form':form})
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class FaceView(TemplateView):
     form = FaceCreate()
 
@@ -161,7 +163,7 @@ class FaceView(TemplateView):
         else:
             return render(request,"aptitude.html",{'form':form, "data": "Face To Face"})
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class MachineView(TemplateView):
     form = MachineCreate()
 
@@ -184,7 +186,7 @@ class MachineView(TemplateView):
             return redirect("/")
         else:
             return render(request,"aptitude.html",{'form':form, "data": "Machine Test"})
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class CandView(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -215,7 +217,7 @@ class CandView(TemplateView):
             request, "candidate_full.html", {"data": new}
         )
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class HRCreate(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -237,7 +239,7 @@ class HRCreate(TemplateView):
             return render(
                 request, "aptitude.html", {"data": "HR","form":form}
             )
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class InterviewerCreate(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -259,7 +261,7 @@ class InterviewerCreate(TemplateView):
             return render(
                 request, "aptitude.html", {"data": "HR","form":form}
             )
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class CandDetail(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -270,7 +272,7 @@ class CandDetail(TemplateView):
                 request, "candidatedetail.html", {"data":cand[0]}
             )
         
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class MarkView(TemplateView):
 
     def get(self, request, *args, **kwargs):
