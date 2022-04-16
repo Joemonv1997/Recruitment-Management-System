@@ -208,9 +208,10 @@ class CandView(TemplateView):
                 "total":float(wq)
             }
             data_list.append(datad)
-            
+        new = sorted(data_list, key=lambda d: d['total'],reverse=True) 
+
         return render(
-            request, "candidate_full.html", {"data": data_list}
+            request, "candidate_full.html", {"data": new}
         )
 
 
