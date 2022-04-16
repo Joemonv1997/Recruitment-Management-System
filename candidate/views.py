@@ -130,7 +130,7 @@ class AptitudeView(TemplateView):
             q.save()
             return redirect("/")
         else:
-            return render(request,"candidate.html",{'form':form})
+            return render(request,"aptitude.html",{'form':form})
 
 
 class FaceView(TemplateView):
@@ -145,13 +145,18 @@ class FaceView(TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
-        pass
-        # form=candidateCreate(request.POST)
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect("/")
-        # else:
-        #     return render(request,"candidate.html",{'form':form})
+        print(request.POST)
+        form=FaceCreate(request.POST)
+        wq=int(request.POST["personality_marks"])+int(request.POST["communication_marks"])+int(request.POST["technical_marks"])+int(request.POST["logical_marks"])
+        wq=wq/4
+        if form.is_valid():
+            q=form.save(commit=False)
+            q.Name=candidate.objects.get(id=kwargs.get("id"))
+            q.average_marks=wq
+            q.save()
+            return redirect("/")
+        else:
+            return render(request,"aptitude.html",{'form':form, "data": "Face To Face"})
 
 
 class MachineView(TemplateView):
@@ -160,16 +165,32 @@ class MachineView(TemplateView):
     def get(self, request, *args, **kwargs):
         cand = candidate.objects.get(id=kwargs.get("id"))
         print(cand)
-        # print(kwargs.get("id"))
         return render(
             request, "aptitude.html", {"form": self.form, "data": "Machine Test"}
         )
 
     def post(self, request, *args, **kwargs):
-        pass
-        # form=candidateCreate(request.POST)
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect("/")
-        # else:
-        #     return render(request,"candidate.html",{'form':form})
+        wq=int(request.POST["logic_marks"])+int(request.POST["problemsolve_marks"])+int(request.POST["Finalout_marks"])
+        wq=wq/3
+        form=MachineCreate(request.POST)
+        if form.is_valid():
+            q=form.save(commit=False)
+            q.Name=candidate.objects.get(id=kwargs.get("id"))
+            q.average_marks=wq
+            q.save()
+            return redirect("/")
+        else:
+            return render(request,"aptitude.html",{'form':form, "data": "Machine Test"})
+
+class CandView(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        cand = candidate.objects.all().values("username",
+        "FullName", "LastName", "Designation__name", "Experience", "id"
+    )
+        apt=Aptitude.objects.all().values("Name__username","aptitude_marks")
+        fact=FaceToFace.objects.all().values("Name__username","average_marks")
+        mac=MachineMark.objects.all().values("Name__username","average_marks")
+        return render(
+            request, "candidate_full.html", {"data": cand}
+        )

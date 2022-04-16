@@ -31,19 +31,19 @@ class candidateCreate(ModelForm):
 class AptitudeCreate(ModelForm):
     class Meta:
         model = Aptitude
-        exclude = ["Name"]
+        exclude = ["Name","average_marks"]
 
 
 class FaceCreate(ModelForm):
     class Meta:
         model = FaceToFace
-        exclude = ["Name"]
+        exclude = ["Name","average_marks"]
 
 
 class MachineCreate(ModelForm):
     class Meta:
         model = MachineMark
-        exclude = ["Name"]
+        exclude = ["Name","average_marks"]
 
 
 class StatusCreate(ModelForm):
