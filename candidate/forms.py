@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from django.forms import Form, ModelForm
+from django.forms import Form, ModelForm,ModelChoiceField
 from .models import (
     Designation,
     candidate,
@@ -23,9 +23,10 @@ class DesignationCreate(ModelForm):
 
 
 class candidateCreate(ModelForm):
+    Interviewer=ModelChoiceField(queryset=User.objects.filter(groups__name="Interviewer"))
     class Meta:
         model = candidate
-        fields = "__all__"
+        fields="__all__"
 
 
 class AptitudeCreate(ModelForm):
