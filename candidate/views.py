@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
+from django.contrib.auth.forms import UserCreationForm
 from .forms import (
     GroupCreate,
     DesignationCreate,
@@ -20,6 +21,7 @@ from .models import (
     CandidateStatus,
 )
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User,Group
 from django.shortcuts import redirect
 
 # Create your views here.
@@ -194,3 +196,48 @@ class CandView(TemplateView):
         return render(
             request, "candidate_full.html", {"data": cand}
         )
+
+
+class HRCreate(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return render(
+                request, "aptitude.html", {"data": "HR","form":UserCreationForm}
+            )
+        else:
+            return redirect("/")
+    
+    def post(self,request,*args, **kwargs):
+        form=UserCreationForm(request.POST)
+        if form.is_valid():
+            q=form.save()
+            my_group=Group.objects.get(name='H.R')
+            my_group.user_set.add(q)
+            return redirect("/")
+        else:
+            return render(
+                request, "aptitude.html", {"data": "HR","form":form}
+            )
+
+class InterviewerCreate(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return render(
+                request, "aptitude.html", {"data": "HR","form":UserCreationForm}
+            )
+        else:
+            return redirect("/")
+    
+    def post(self,request,*args, **kwargs):
+        form=UserCreationForm(request.POST)
+        if form.is_valid():
+            q=form.save()
+            my_group=Group.objects.get(name='Interviewer')
+            my_group.user_set.add(q)
+            return redirect("/")
+        else:
+            return render(
+                request, "aptitude.html", {"data": "HR","form":form}
+            )

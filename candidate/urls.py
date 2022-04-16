@@ -13,5 +13,7 @@ urlpatterns = [
     path("apt/<int:id>", views.AptitudeView.as_view(), name="Aptitude"),
     path("face/<int:id>", views.FaceView.as_view(), name="face"),
     path("machine/<int:id>", views.MachineView.as_view(), name="machine"),
-    path("candmark",views.CandView.as_view(),name="candm")
+    path("candmark",views.CandView.as_view(),name="candm"),
+    path("HRCreate",views.HRCreate.as_view(),name="HR"),
+    path("Interviewe",views.InterviewerCreate.as_view(),name="Interviewer")
 ]
