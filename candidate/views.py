@@ -11,7 +11,7 @@ from .forms import (
     MachineCreate,
     FaceCreate,
     MachineCreate,
-    StatusCreate,
+    StatusCreate,datefilter,datechange
 )
 from .models import (
     candidate,
@@ -113,7 +113,7 @@ class loginrequest(TemplateView):
             return HttpResponse("Authentication Failed")
         return redirect("/")
 
-
+@method_decorator(login_required(login_url='/login'), name='dispatch')
 class logoutr(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
@@ -354,6 +354,7 @@ class MarkView(TemplateView):
 
 @method_decorator(login_required(login_url='/login'), name='dispatch')
 class StatusCV(TemplateView):
+    # form=datefilter
     form = StatusCreate
 
     def get(self, request, *args, **kwargs):
@@ -371,3 +372,39 @@ class StatusCV(TemplateView):
             return redirect("/")
         else:
             return render(request,"aptitude.html",{'form':form, "data": "Status"})
+
+@method_decorator(login_required(login_url='/login'), name='dispatch')
+class filterCandidateListView(TemplateView):
+    form=datefilter
+    data = candidate.objects.all().values(
+        "FullName", "LastName", "Designation__name", "Experience", "id","InterviewDate"
+    )
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return render(request, "date.html", {"data": self.data,"form":self.form})
+        else:
+            return redirect("/")
+    
+    def post(self, request, *args, **kwargs):
+        # print(request.POST)
+        # form=datefilter(request.POST) 
+        data = candidate.objects.filter(InterviewDate=request.POST["date"]).values(
+        "FullName", "LastName", "Designation__name", "Experience", "id","InterviewDate"
+    )
+        return render(request, "date.html", {"data": data,"form":datefilter(request.POST)})
+
+class changedate(TemplateView):
+    form=datechange
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return render(request, "aptitude.html", {"data":"InterviewDate","form":self.form})
+        else:
+            return redirect("/")
+    
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        # form=datefilter(request.POST) 
+        data = candidate.objects.filter(id=kwargs.get("id")).update(InterviewDate=request.POST["InterviewDate"])
+    
+        return redirect("/")

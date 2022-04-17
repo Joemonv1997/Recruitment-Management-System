@@ -51,3 +51,13 @@ class StatusCreate(ModelForm):
     class Meta:
         model = CandidateStatus
         exclude = ["Name"]
+
+class datefilter(Form):
+    date=ModelChoiceField(queryset=candidate.objects.all().values_list('InterviewDate',flat=True).distinct())
+
+
+
+class datechange(ModelForm):
+    class Meta:
+        model = candidate
+        fields=["InterviewDate"]

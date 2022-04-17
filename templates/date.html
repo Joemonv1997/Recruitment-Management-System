@@ -1,5 +1,10 @@
 {% extends "home.html" %}
 {% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
 <table class="table table-bordered">
     <thead>
       <tr>
@@ -7,7 +12,7 @@
         <th scope="col">Last</th>
         <th scope="col">Designation</th>
         <th scope="col">Experience</th>
-        <th scope="col">Change Interview Date</th>
+        <th scope="col">Interview Date</th>
         <th scope="col">View</th>
         <th scope="col">Create Aptitude Mark</th>
         <th scope="col">Create FaceToFace Mark</th>
@@ -22,8 +27,7 @@
         <td>{{i.LastName}}</td>
         <td>{{i.Designation__name}}</td>
         <td>{{i.Experience}}</td>
-        <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'inda' i.id %}">Interview date Change</button></td>
-
+        <td>{{i.InterviewDate}}</td>
         <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'detail' i.id %}">View</button></td>
         <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'Aptitude' i.id %}">Aptitude</button>
         </td>

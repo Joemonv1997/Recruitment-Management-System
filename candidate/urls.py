@@ -18,5 +18,8 @@ urlpatterns = [
     path("Interviewe",views.InterviewerCreate.as_view(),name="Interviewer"),
     path("detail/<int:id>",views.CandDetail.as_view(),name="detail"),
     path("mark/<int:id>",views.MarkView.as_view(),name="mark"),
-    path("status/<int:id>",views.StatusCV.as_view(),name="status")
+    path("status/<int:id>",views.StatusCV.as_view(),name="status"),
+    path("datefilter",views.filterCandidateListView.as_view(),name="candfil"),
+    path("dateinterview/<int:id>",views.changedate.as_view(),name="inda"),
+    
 ]
