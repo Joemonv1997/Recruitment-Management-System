@@ -12,6 +12,7 @@ class Designation(models.Model):
 
 class candidate(models.Model):
     inchoices = (("FN", "FN"), ("AN", "AN"), ("EN", "EN"))
+    # status_choices=(("PASS","PASS"),("ON-HOLD","ON-HOLD"),("FAIL","FAIL"))
     username = models.CharField(max_length=100, unique=True, blank=True, null=True)
     FullName = models.CharField(max_length=100)
     LastName = models.CharField(max_length=100)

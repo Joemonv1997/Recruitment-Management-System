@@ -17,5 +17,6 @@ urlpatterns = [
     path("HRCreate",views.HRCreate.as_view(),name="HR"),
     path("Interviewe",views.InterviewerCreate.as_view(),name="Interviewer"),
     path("detail/<int:id>",views.CandDetail.as_view(),name="detail"),
-    path("mark/<int:id>",views.MarkView.as_view(),name="mark")
+    path("mark/<int:id>",views.MarkView.as_view(),name="mark"),
+    path("status/<int:id>",views.StatusCV.as_view(),name="status")
 ]

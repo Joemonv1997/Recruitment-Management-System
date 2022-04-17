@@ -11,6 +11,7 @@
         <th scope="col">Create Aptitude Mark</th>
         <th scope="col">Create FaceToFace Mark</th>
         <th scope="col">Create Machine Mark</th>
+        <th scope="col">Status create</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +27,8 @@
         <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'face' i.id %}">FaceToFace</button>
         </td>
         <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'machine' i.id %}">Machine</button>
+        </td>
+        <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'status' i.id %}">Status</button>
         </td>
       </tr>
       {% endfor %}

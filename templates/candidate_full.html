@@ -11,6 +11,7 @@
         <th scope="col">FaceToFace Average Marks</th>
         <th scope="col">Machine Average Marks</th>
         <th scope="col">Total Marks</th>
+        <th scope="col">Interview Status</th>
         <th scope="col">View Marks</th>
       </tr>
     </thead>
@@ -25,6 +26,7 @@
         <td>{{i.fact}}</td>
         <td>{{i.mac}}</td>
         <td>{{i.total}}</td>
+        <td>{{i.stain}}</td>
         <td><button class="btn btn-outline-warning" type="button" onclick =document.location="{% url 'mark' i.id %}">Detailed marks</button>
         </td>
       </tr>
