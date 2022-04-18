@@ -147,7 +147,6 @@ class FaceView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         cand = candidate.objects.get(id=kwargs.get("id"))
-        print(cand)
         # print(kwargs.get("id"))
         return render(
             request, "aptitude.html", {"form": self.form, "data": "Face To Face"}
@@ -176,7 +175,6 @@ class MachineView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         cand = candidate.objects.get(id=kwargs.get("id"))
-        print(cand)
         return render(
             request, "aptitude.html", {"form": self.form, "data": "Machine Test"}
         )
@@ -296,7 +294,6 @@ class CandDetail(TemplateView):
     def get(self, request, *args, **kwargs):
         cand=candidate.objects.filter(id=kwargs.get("id")).annotate(interviewer=F("Interviewer__username")).values()
         # cand=cand[0].values()
-        print(cand[0])
         return render(
                 request, "candidatedetail.html", {"data":cand[0]}
             )
@@ -377,7 +374,7 @@ class StatusCV(TemplateView):
 class filterCandidateListView(TemplateView):
     form=datefilter
     data = candidate.objects.all().values(
-        "FullName", "LastName", "Designation__name", "Experience", "id","InterviewDate"
+        "FullName", "LastName", "Designation__name", "Experience", "id","InterviewDate","InterviewT"
     )
 
     def get(self, request, *args, **kwargs):
@@ -387,10 +384,9 @@ class filterCandidateListView(TemplateView):
             return redirect("/")
     
     def post(self, request, *args, **kwargs):
-        # print(request.POST)
         # form=datefilter(request.POST) 
         data = candidate.objects.filter(InterviewDate=request.POST["date"]).values(
-        "FullName", "LastName", "Designation__name", "Experience", "id","InterviewDate"
+        "FullName", "LastName", "Designation__name", "Experience", "id","InterviewDate","InterviewT"
     )
         return render(request, "date.html", {"data": data,"form":datefilter(request.POST)})
 
@@ -403,8 +399,7 @@ class changedate(TemplateView):
             return redirect("/")
     
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         # form=datefilter(request.POST) 
-        data = candidate.objects.filter(id=kwargs.get("id")).update(InterviewDate=request.POST["InterviewDate"])
+        data = candidate.objects.filter(id=kwargs.get("id")).update(InterviewDate=request.POST["InterviewDate"],InterviewT=request.POST["InterviewT"])
     
         return redirect("/")

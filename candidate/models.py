@@ -1,8 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import date
+from django.forms import ValidationError
 
-
+def validdate(n):
+    today_n=date.today()
+    d=n
+    if d<today_n:
+        return ValidationError("Date is not Valid")
+    else:
+        return d
 class Designation(models.Model):
     name = models.CharField(max_length=100)
 
@@ -14,7 +22,7 @@ class candidate(models.Model):
     inchoices = (("FN", "FN"), ("AN", "AN"), ("EN", "EN"))
     # status_choices=(("PASS","PASS"),("ON-HOLD","ON-HOLD"),("FAIL","FAIL"))
     username = models.CharField(max_length=100, unique=True, blank=True, null=True)
-    FullName = models.CharField(max_length=100)
+    FullName = models.CharField(max_length=100,verbose_name="First Name")
     LastName = models.CharField(max_length=100)
     Address = models.TextField()
     Designation = models.ForeignKey(Designation, on_delete=models.CASCADE)
@@ -26,7 +34,7 @@ class candidate(models.Model):
     Interviewer = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True
     )
-    InterviewDate = models.DateField(null=True, blank=True)
+    InterviewDate = models.DateField(null=True, blank=True,validators=[validdate])
     InterviewT = models.CharField(
         max_length=20, choices=inchoices, null=True, blank=True
     )

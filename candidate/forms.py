@@ -9,7 +9,7 @@ from .models import (
     CandidateStatus,
 )
 
-
+from datetime import date
 class GroupCreate(ModelForm):
     class Meta:
         model = Group
@@ -53,11 +53,10 @@ class StatusCreate(ModelForm):
         exclude = ["Name"]
 
 class datefilter(Form):
-    date=ModelChoiceField(queryset=candidate.objects.all().values_list('InterviewDate',flat=True).distinct())
-
-
+    date=ModelChoiceField(queryset=candidate.objects.all().values_list('InterviewDate',flat=True).distinct(),required=False,initial=date.today(),empty_label=None)
+    # InterviewT=ModelChoiceField(queryset=candidate.objects.all().values_list('InterviewT',flat=True).distinct(),required=False)
 
 class datechange(ModelForm):
     class Meta:
         model = candidate
-        fields=["InterviewDate"]
+        fields=["InterviewDate","InterviewT"]
